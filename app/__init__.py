@@ -1,19 +1,14 @@
-import os
-
 from flask import Flask
+# from flask_migrate import Migrate
+from config.config import config
 
-from .database import db
 
-
-def create_app():
+def create_app(app_config='development'):
     app = Flask(__name__)
-    app.config.from_object(os.environ['APP_SETTINGS'])
+    app.config.from_object(config[app_config])
+    from app.main.routers import main
 
-    db.init_app(app)
-    with app.test_request_context():
-        db.create_all()
-
-    from app.messenger.controllers import module
-    app.register_blueprint(module)
-
+    app.register_blueprint(main)
     return app
+
+# migrate = Migrate(app, db)
