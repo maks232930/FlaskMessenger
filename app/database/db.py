@@ -1,8 +1,16 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import create_app
-import os
+from sqlalchemy import DateTime
+from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer
+
+from app import db
 
 
-app = create_app()
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_POSTGRES')
-db = SQLAlchemy(app)
+class BaseModel(db.Model):
+    __abstract__ = True
+
+    id = db.Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    def __repr__(self):
+        return "<{0.__class__.__name__}(id={0.id!r})>".format(self)
