@@ -1,6 +1,7 @@
-from sqlalchemy import DateTime
-from sqlalchemy.sql import func
 from sqlalchemy import Column, Integer
+from sqlalchemy import DateTime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql import func
 
 from app import db
 
@@ -16,3 +17,4 @@ class BaseModel(db.Model):
         return "<{0.__class__.__name__}(id={0.id!r})>".format(self)
 
 
+Base = declarative_base(cls=BaseModel)
