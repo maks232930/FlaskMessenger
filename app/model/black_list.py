@@ -1,10 +1,16 @@
 from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 
-import app.model as model
+from .base import Base
 
 
-class BlackList(model.BaseModel):
+class BlackList(Base):
     __tablename__ = 'black_list'
 
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-    black_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    black_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+
+    user = relationship("User", post_update=True, foreign_keys=[user_id],
+                        backref='user')
+    black = relationship("User", post_update=True, foreign_keys=[black_id],
+                         backref='black_user')

@@ -14,8 +14,6 @@ def create_app(app_config='development'):
 
 app = create_app()
 db = SQLAlchemy(app)
-db.init_app(app)
-db.create_all()
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)

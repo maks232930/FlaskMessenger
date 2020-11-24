@@ -1,9 +1,12 @@
-from sqlalchemy import Column, Boolean, Integer, Text
+from sqlalchemy import Column, Boolean, Integer, Text, ForeignKey
+from sqlalchemy.orm import relationship
 
-import app.model as model
+from .base import Base
 
 
-class MessageGroup(model.BaseModel):
-    chat_id = Column(Integer, ForeignKey('chat_group.id'), nullable=False)
+class MessageGroup(Base):
+    chat_id = Column(Integer, ForeignKey('chat_group.id', ondelete="CASCADE"), nullable=False)
     content = Column(Text, nullable=False)
     is_delete = Column(Boolean, default=False)
+
+    chat = relationship("ChatGroup", backref='message_group_chat')

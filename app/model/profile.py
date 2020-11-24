@@ -1,9 +1,10 @@
 from sqlalchemy import Column, CHAR, Boolean, Text, Date, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 
-import app.model as model
+from .base import Base
 
 
-class Profile(model.BaseModel):
+class Profile(Base):
     __tablename__ = 'profile'
 
     first_name = Column(CHAR(50), nullable=False)
@@ -12,4 +13,5 @@ class Profile(model.BaseModel):
     date_of_birth = Column(Date)
     online = Column(Boolean, default=False)
 
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=False, unique=True)
+    user_id = Column(Integer, ForeignKey('user.id', ondelete='CASCADE'), nullable=False, unique=True)
+    user = relationship("User", back_populates="profiles")

@@ -1,10 +1,11 @@
-from sqlalchemy import Column, CHAR, LargeBinary
+from sqlalchemy import Column, CHAR, LargeBinary, ForeignKey, Integer
 
-import app.model as model
+from .base import Base
 
 
-class ChatGroup(model.BaseModel):
+class ChatGroup(Base):
     __tablename__ = 'chat_group'
 
     name = Column(CHAR(255), nullable=False)
     photo = Column(LargeBinary)
+

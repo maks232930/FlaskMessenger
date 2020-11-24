@@ -15,4 +15,7 @@ class User(Base):
     phone = Column(CHAR(20), unique=True, nullable=False)
     avatar = Column(LargeBinary, nullable=True)
 
-    # profile = relationship("Profile", uselist=False)
+    profile = relationship("Profile", uselist=False, back_populates='user')
+    # black_list = relationship('BlackList', back_populates='user', cascade="all, delete-orphan")
+    # chat = relationship('Chat', back_populates='user', cascade="all, delete-orphan")
+    # chosen_list = relationship('ChosenList', back_populates='user', cascade="all, delete-orphan")
