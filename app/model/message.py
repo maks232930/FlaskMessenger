@@ -5,9 +5,9 @@ from .base import Base
 
 
 class Message(Base):
-    __tablename__ = 'message'
+    __tablename__ = 'messages'
 
-    chat_id = Column(Integer, ForeignKey('chat.id', ondelete="CASCADE"), nullable=False)
+    chat_id = Column(Integer, ForeignKey('chats.id', ondelete="CASCADE"), nullable=False)
     content = Column(Text, nullable=False)
     read = Column(Boolean, default=False)
     is_delete = Column(Boolean, default=False)

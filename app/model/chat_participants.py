@@ -5,10 +5,10 @@ from .base import Base
 
 
 class ChatParticipants(Base):
-    __tablename__ = 'chat_participant'
+    __tablename__ = 'chats_participants'
 
-    chat_id = Column(Integer, ForeignKey('chat_group.id', ondelete="CASCADE"), nullable=False)
-    user_id = Column(Integer, ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    chat_id = Column(Integer, ForeignKey('chats_groups.id', ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     is_admin = Column(Boolean, default=False)
 
     chat = relationship("ChatGroup", post_update=True, foreign_keys=[chat_id],

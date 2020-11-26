@@ -7,7 +7,7 @@ class Config:
     DEBUG = False
     CSRF_ENABLED = True
     TESTING = True
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'das13sdf'
+    SECRET_KEY = '312h1ib31BJKB*&^&*Sdasdw'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:root@localhost/messenger'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

@@ -5,7 +5,8 @@ from .base import Base
 
 
 class MessageGroup(Base):
-    chat_id = Column(Integer, ForeignKey('chat_group.id', ondelete="CASCADE"), nullable=False)
+    __tablename__ = 'messages_groups'
+    chat_id = Column(Integer, ForeignKey('chats_groups.id', ondelete="CASCADE"), nullable=False)
     content = Column(Text, nullable=False)
     is_delete = Column(Boolean, default=False)
 

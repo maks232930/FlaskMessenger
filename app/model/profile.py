@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Profile(Base):
-    __tablename__ = 'profile'
+    __tablename__ = 'profiles'
 
     first_name = Column(CHAR(50), nullable=False)
     last_name = Column(CHAR(50), nullable=False)
@@ -13,5 +13,5 @@ class Profile(Base):
     date_of_birth = Column(Date)
     online = Column(Boolean, default=False)
 
-    user_id = Column(Integer, ForeignKey('user.id', ondelete='CASCADE'), nullable=False, unique=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False, unique=True)
     user = relationship("User", back_populates="profiles")

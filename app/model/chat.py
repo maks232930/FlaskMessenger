@@ -5,10 +5,10 @@ from .base import Base
 
 
 class Chat(Base):
-    __tablename__ = 'chat'
+    __tablename__ = 'chats'
     name = Column(CHAR(255), nullable=False)
-    first_participant_id = Column(Integer, ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    second_participant_id = Column(Integer, ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    first_participant_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    second_participant_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
 
     first_participant = relationship("User", post_update=True, foreign_keys=[first_participant_id],
                                      backref='chat_first_participant')

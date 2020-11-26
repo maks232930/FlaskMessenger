@@ -7,8 +7,8 @@ from .base import Base
 class BlackList(Base):
     __tablename__ = 'black_list'
 
-    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
-    black_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    black_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     user = relationship("User", post_update=True, foreign_keys=[user_id],
                         backref='user')

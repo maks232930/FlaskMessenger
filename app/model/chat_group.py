@@ -4,7 +4,7 @@ from .base import Base
 
 
 class ChatGroup(Base):
-    __tablename__ = 'chat_group'
+    __tablename__ = 'chats_groups'
 
     name = Column(CHAR(255), nullable=False)
     photo = Column(LargeBinary)
