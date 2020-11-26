@@ -14,4 +14,4 @@ class Profile(Base):
     online = Column(Boolean, default=False)
 
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False, unique=True)
-    user = relationship("User", back_populates="profiles")
+    # user = relationship("User", back_populates="profiles")

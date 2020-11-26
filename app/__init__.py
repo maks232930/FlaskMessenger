@@ -1,23 +1,29 @@
 from flask import Flask
-from flask_script import Manager
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate, MigrateCommand
-from flask_login import LoginManager
+
+from app import api
+from app.api.routes import blueprint
+from app.extensions import db
+from app.extensions import login_manager
 from config.config import config
-from .api.login import app_route
 
 
 def create_app(app_config='development'):
     app = Flask(__name__)
     app.config.from_object(config[app_config])
-    app.register_blueprint(app_route)
-
+    register_extensions(app)
+    register_blueprints(app)
     return app
 
 
+def register_extensions(app):
+    db.init_app(app)
+    login_manager.init_app(app)
+    return None
+
+
+def register_blueprints(app):
+    app.register_blueprint(api.routes.blueprint)
+    return None
+
+
 app = create_app()
-db = SQLAlchemy(app)
-login = LoginManager(app)
-# migrate = Migrate(app, db)
-# manager = Manager(app)
-# manager.add_command('db', MigrateCommand)

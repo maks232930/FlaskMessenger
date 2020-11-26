@@ -1,4 +1,4 @@
-from sqlalchemy import Column, CHAR, LargeBinary, ForeignKey, Integer
+from sqlalchemy import Column, CHAR, LargeBinary
 
 from .base import Base
 
@@ -8,4 +8,3 @@ class ChatGroup(Base):
 
     name = Column(CHAR(255), nullable=False)
     photo = Column(LargeBinary)
-

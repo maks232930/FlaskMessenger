@@ -3,13 +3,13 @@ from sqlalchemy import DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 
-from app import db
+from app.extensions import db
 
 
 class BaseModel(db.Model):
     __abstract__ = True
 
-    id = db.Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
