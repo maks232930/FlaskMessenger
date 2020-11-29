@@ -1,0 +1,33 @@
+import datetime
+
+from flask import request
+from flask_jwt_extended import create_access_token
+from flask_restful import Resource
+
+from app.extensions import db
+from app.model.user import User
+
+
+class SignupApi(Resource):
+    def post(self):
+        body = request.get_json()
+        user = User(password_hash=body.get('password'), username=body.get('username'), phone=body.get('phone'),
+                    email=body.get('email'))
+        user.hash_password()
+        db.session.add(user)
+        db.session.commit()
+        return {'id': str(id)}, 200
+
+
+class LoginApi(Resource):
+    def post(self):
+        body = request.get_json()
+        user = User.query.filter_by(email=body.get('email')).first()
+        authorized = user.check_password(body.get('password'))
+        if not authorized:
+            return {'error': 'Email or password invalid'}, 401
+
+        expires = datetime.timedelta(days=7)
+        access_token = create_access_token(identity=str(user.id), expires_delta=expires)
+
+        return {'token': access_token}, 200
