@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from sqlalchemy import Column, CHAR, Boolean, LargeBinary, String
 
 from .base import Base
+from app.extensions import ma
 
 
 class User(Base, UserMixin):
@@ -25,3 +26,12 @@ class User(Base, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+
+
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)

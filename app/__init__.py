@@ -1,6 +1,7 @@
 from flask import Flask
 
 from app.api.auth import SignupApi, LoginApi
+from app.api.user import UserApi
 from app.extensions import db, ma, api, bcrypt, jwt
 from config.config import config
 
@@ -25,6 +26,7 @@ def register_extensions(app):
 def initialize_routes(api):
     api.add_resource(SignupApi, '/api/v1.0/auth/signup/')
     api.add_resource(LoginApi, '/api/v1.0/auth/login/')
+    api.add_resource(UserApi, '/api/v1.0/user/')
     return None
 
 
