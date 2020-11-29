@@ -10,6 +10,7 @@ class Config:
     SECRET_KEY = '312h1ib31BJKB*&^&*Sdasdw'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:root@localhost/messenger'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
 
 class ProductionConfig(Config):
