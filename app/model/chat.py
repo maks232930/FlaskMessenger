@@ -1,6 +1,7 @@
 from sqlalchemy import Column, CHAR, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
+from app.extensions import ma
 from .base import Base
 
 
@@ -14,3 +15,12 @@ class Chat(Base):
                                      backref='chat_first_participant')
     second_participant = relationship("User", post_update=True, foreign_keys=[second_participant_id],
                                       backref='chat_second_participant')
+
+
+class ChatSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Chat
+
+
+chat_schema = ChatSchema()
+chats_schema = ChatSchema(many=True)

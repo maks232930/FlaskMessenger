@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 from app.extensions import ma
 from .base import Base
+from .user import User
 
 
 class Profile(Base):
@@ -15,7 +16,7 @@ class Profile(Base):
     online = Column(Boolean, default=False)
 
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False, unique=True)
-    user = relationship("User", backref="profiles", lazy=True)
+    user = relationship(User, backref="profiles", lazy=True, uselist=False)
 
 
 class ProfileSchema(ma.SQLAlchemyAutoSchema):

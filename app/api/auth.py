@@ -11,8 +11,7 @@ from app.model.user import User
 class SignupApi(Resource):
     def post(self):
         body = request.get_json()
-        user = User(password_hash=body.get('password'), username=body.get('username'), phone=body.get('phone'),
-                    email=body.get('email'))
+        user = User(**body)
         user.hash_password()
         db.session.add(user)
         db.session.commit()
