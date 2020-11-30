@@ -9,14 +9,14 @@ from app.model.user import User, user_schema
 
 class UserApi(Resource):
     @jwt_required
-    def get(self, username):
-        user = User.query.filter_by(username=username).first()
+    def get(self, user_id):
+        user = User.query.filter_by(id=user_id).first()
         print(user)
         return jsonify(user_schema.dump(user))
 
     @jwt_required
-    def put(self, username):
+    def put(self, user_id):
         body = request.get_json()
-        User.query.filter_by(username=username).update(dict(**body))
+        User.query.filter_by(id=user_id).update(dict(**body))
         db.session.commit()
         return {'response': 'Ok'}, 200

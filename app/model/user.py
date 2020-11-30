@@ -1,6 +1,7 @@
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Column, CHAR, Boolean, LargeBinary, String
+from sqlalchemy.orm import relationship
 
 from .base import Base
 from app.extensions import ma
@@ -16,7 +17,7 @@ class User(Base, UserMixin):
     phone = Column(CHAR(20), unique=True, nullable=False)
     avatar = Column(LargeBinary, nullable=True)
 
-    # profile = relationship("Profile", uselist=False, back_populates='user')
+    # profile = relationship("Profile", back_populates='user', uselist=False)
 
     def __repr__(self):
         return f'User {self.username}'
