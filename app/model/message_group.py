@@ -2,6 +2,7 @@ from sqlalchemy import Column, Boolean, Integer, Text, ForeignKey
 from sqlalchemy.orm import relationship
 
 from .base import Base
+from .chat_group import ChatGroup
 
 
 class MessageGroup(Base):
@@ -10,4 +11,4 @@ class MessageGroup(Base):
     content = Column(Text, nullable=False)
     is_delete = Column(Boolean, default=False)
 
-    chat = relationship("ChatGroup", backref='message_group_chat')
+    chat = relationship(ChatGroup, backref='message_group_chat')
