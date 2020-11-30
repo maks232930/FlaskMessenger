@@ -1,10 +1,9 @@
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Column, CHAR, Boolean, LargeBinary, String
-from sqlalchemy.orm import relationship
 
-from .base import Base
 from app.extensions import ma
+from .base import Base
 
 
 class User(Base, UserMixin):
@@ -12,12 +11,28 @@ class User(Base, UserMixin):
     username = Column(CHAR(150), unique=True, nullable=False)
     email = Column(CHAR(100), unique=True, nullable=False)
     password_hash = Column(String, nullable=False)
-    is_superuser = Column(Boolean, default=False, nullable=False)
-    is_staff = Column(Boolean, default=False, nullable=False)
+    _is_superuser = Column(Boolean, default=False, nullable=False)
+    _is_staff = Column(Boolean, default=False, nullable=False)
     phone = Column(CHAR(20), unique=True, nullable=False)
     avatar = Column(LargeBinary, nullable=True)
 
     # profile = relationship("Profile", back_populates='user', uselist=False)
+
+    @property
+    def is_staff(self):
+        return self._is_staff
+
+    @is_staff.setter
+    def is_staff(self, value):
+        self._is_staff = value
+
+    @property
+    def is_superuser(self):
+        return self._is_superuser
+
+    @is_superuser.setter
+    def is_superuser(self, value):
+        self._is_superuser = value
 
     def __repr__(self):
         return f'User {self.username}'
