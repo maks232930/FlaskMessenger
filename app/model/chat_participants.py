@@ -16,4 +16,4 @@ class ChatParticipants(Base):
     chat = relationship(ChatGroup, post_update=True, foreign_keys=[chat_id],
                         backref='chat')
     user = relationship(User, post_update=True, foreign_keys=[user_id],
-                        backref='user')
+                        backref='chat_user')

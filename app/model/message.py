@@ -11,7 +11,7 @@ class Message(Base):
     __tablename__ = 'messages'
 
     chat_id = Column(Integer, ForeignKey('chats.id', ondelete="CASCADE"), nullable=False)
-    sender_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    sender_id = Column(Integer, ForeignKey('users.id', ondelete="SET NULL"), nullable=False)
     content = Column(Text, nullable=False)
     read = Column(Boolean, default=False)
     is_delete = Column(Boolean, default=False)

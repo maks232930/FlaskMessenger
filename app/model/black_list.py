@@ -12,6 +12,6 @@ class BlackList(Base):
     black_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     user = relationship(User, post_update=True, foreign_keys=[user_id],
-                        backref='user')
+                        backref='users')
     black = relationship(User, post_update=True, foreign_keys=[black_id],
                          backref='black_user')

@@ -15,7 +15,7 @@ class SignupApi(Resource):
         user.hash_password()
         db.session.add(user)
         db.session.commit()
-        return {'id': str(id)}, 200
+        return {'response': 'Ok'}, 200
 
 
 class LoginApi(Resource):

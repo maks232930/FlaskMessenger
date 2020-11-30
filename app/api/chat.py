@@ -37,6 +37,8 @@ class ChatApi(Resource):
     @jwt_required
     def post(self, chat_id):
         user_id = get_jwt_identity()
+        chat = Chat.query.filter(Chat.id == chat_id,
+                                 or_(Chat.first_participant_id == user_id, Chat.second_participant_id == user_id))
         body = request.get_json()
-        chat = Chat(**body)
-        db.session.add(chat)
+        Message(**body, sender=user_id, chat_id=chat_id)
+        return {"response": "Ok"}, 200

@@ -18,7 +18,7 @@ class Chat(Base):
                                       backref='chat_second_participant')
 
 
-class ChatSchema(ma.SQLAlchemyAutoSchema):
+class ChatSchema(ma.Schema):
     class Meta:
         model = Chat
 
