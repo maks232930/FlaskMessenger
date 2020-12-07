@@ -19,7 +19,7 @@ class SignupApi(Resource):
         user = User.query.filter_by(email=body.get('email')).first()
         expires = datetime.timedelta(days=7)
         access_token = create_access_token(identity=str(user.id), expires_delta=expires)
-        return {'token': access_token}, 200
+        return {'token': access_token}, 201
 
 
 class LoginApi(Resource):
@@ -33,4 +33,4 @@ class LoginApi(Resource):
         expires = datetime.timedelta(days=7)
         access_token = create_access_token(identity=str(user.id), expires_delta=expires)
 
-        return {'token': access_token}, 200
+        return {'token': access_token}, 201

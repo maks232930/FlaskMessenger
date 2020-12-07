@@ -1,4 +1,4 @@
-from sqlalchemy import Column, CHAR, Boolean, Text, Date, Integer, ForeignKey
+from sqlalchemy import Column, VARCHAR, Boolean, Text, Date, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.extensions import ma
@@ -9,8 +9,8 @@ from .user import User
 class Profile(Base):
     __tablename__ = 'profiles'
 
-    first_name = Column(CHAR(50), nullable=False)
-    last_name = Column(CHAR(50), nullable=False)
+    first_name = Column(VARCHAR(50), nullable=False)
+    last_name = Column(VARCHAR(50), nullable=False)
     profile_description = Column(Text)
     date_of_birth = Column(Date)
     online = Column(Boolean, default=False)

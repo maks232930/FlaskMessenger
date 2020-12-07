@@ -1,4 +1,4 @@
-from sqlalchemy import Column, CHAR, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, VARCHAR
 from sqlalchemy.orm import relationship
 
 from app.extensions import ma
@@ -8,17 +8,17 @@ from .user import User
 
 class Chat(Base):
     __tablename__ = 'chats'
-    name = Column(CHAR(255), nullable=False)
+    name = Column(VARCHAR, nullable=False)
     first_participant_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
-    second_participant_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    second_participant_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False, unique=True)
 
     first_participant = relationship(User, post_update=True, foreign_keys=[first_participant_id],
-                                     backref='chat_first_participant')
+                                     backref='first_user')
     second_participant = relationship(User, post_update=True, foreign_keys=[second_participant_id],
-                                      backref='chat_second_participant')
+                                      backref='second_user')
 
 
-class ChatSchema(ma.Schema):
+class ChatSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Chat
 

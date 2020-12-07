@@ -8,24 +8,30 @@ from app.model.profile import Profile, profile_schema
 
 class ProfileApi(Resource):
     @jwt_required
-    def post(self):
-        user_id = get_jwt_identity()
+    def post(self, user_id):
+        authorized_id = get_jwt_identity()
+        if user_id != authorized_id:
+            return {"Response": "user_id invalid"}, 401
         body = request.get_json()
         profile = Profile(**body, user_id=user_id)
         db.session.add(profile)
         db.session.commit()
-        return {'response': 'Ok'}
+        return {"Response": "Created"}, 201
 
     @jwt_required
-    def get(self):
-        user_id = get_jwt_identity()
+    def get(self, user_id):
         profile = Profile.query.filter_by(user_id=user_id).first()
-        return jsonify(profile_schema.dump(profile))
+        if profile is None:
+            return {"Response": "No user"}, 401
+        return jsonify(profile_schema.dump(profile)), 200
 
     @jwt_required
-    def put(self):
-        user_id = get_jwt_identity()
+    def put(self, user_id):
+        authorized_id = get_jwt_identity()
+        if user_id != authorized_id:
+            return {"Response": "user_id invalid"}, 401
         body = request.get_json()
+        print(len(body['last_name']))
         Profile.query.filter_by(user_id=user_id).update(dict(**body))
         db.session.commit()
-        return {"response": "Ok"}
+        return {"response": "Ok"}, 200

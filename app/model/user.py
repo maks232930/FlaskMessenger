@@ -1,6 +1,6 @@
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy import Column, CHAR, Boolean, LargeBinary, String
+from sqlalchemy import Column, CHAR, Boolean, LargeBinary, String, VARCHAR
 
 from app.extensions import ma
 from .base import Base
@@ -8,12 +8,12 @@ from .base import Base
 
 class User(Base, UserMixin):
     __tablename__ = 'users'
-    username = Column(CHAR(150), unique=True, nullable=False)
-    email = Column(CHAR(100), unique=True, nullable=False)
+    username = Column(VARCHAR(150), unique=True, nullable=False)
+    email = Column(VARCHAR(100), unique=True, nullable=False)
     password_hash = Column(String, nullable=False)
     _is_superuser = Column(Boolean, default=False, nullable=False)
     _is_staff = Column(Boolean, default=False, nullable=False)
-    phone = Column(CHAR(20), unique=True, nullable=False)
+    phone = Column(VARCHAR(20), unique=True, nullable=False)
     avatar = Column(LargeBinary, nullable=True)
 
     # profile = relationship("Profile", back_populates='user', uselist=False)

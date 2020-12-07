@@ -11,6 +11,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:root@localhost/messenger'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    RESTPLUS_JSON = {'indent': None, 'separators': (',', ':')}
 
 
 class ProductionConfig(Config):
