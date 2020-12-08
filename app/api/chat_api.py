@@ -13,15 +13,13 @@ class ChatsApi(Resource):
     def get(self):
         user_id = get_jwt_identity()
         chats = Chat.query.filter(or_(Chat.first_participant_id == user_id, Chat.second_participant_id == user_id))
-        return jsonify(chats_schema.dump(chats))
+        return jsonify(chats_schema.dump(chats), 200)
 
     @jwt_required
     def post(self):
         user_id = get_jwt_identity()
         body = request.get_json()
-        print(len(body['name']))
         chat = Chat(**body, first_participant_id=user_id)
-        print(len(chat.name))
         db.session.add(chat)
         db.session.commit()
         return {"Response": "Created"}, 201
@@ -33,11 +31,11 @@ class ChatApi(Resource):
         user_id = get_jwt_identity()
         chat = Chat.query.filter(Chat.id == chat_id,
                                  or_(Chat.first_participant_id == user_id,
-                                     Chat.second_participant_id == chat_id)).filter(Message.is_delete != False)
+                                     Chat.second_participant_id == chat_id)).filter(Message.is_delete is False)
         if chat is None:
             return {"Response": "chat_id invalid"}, 404
         messages = Message.query.join(Chat).filter(Message.chat_id == Chat.id).filter(Message.chat_id == chat_id)
-        return jsonify(messages_schema.dump(messages))
+        return jsonify(messages_schema.dump(messages), 200)
 
     @jwt_required
     def post(self, chat_id):

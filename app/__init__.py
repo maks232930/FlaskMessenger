@@ -29,7 +29,7 @@ def initialize_routes(api):
     api.add_resource(SignupApi, '/api/v1.0/auth/signup/')
     api.add_resource(LoginApi, '/api/v1.0/auth/login/')
     api.add_resource(UserApi, '/api/v1.0/users/<int:user_id>/')
-    api.add_resource(ProfileApi, '/api/v1.0/profiles/user_id/')
+    api.add_resource(ProfileApi, '/api/v1.0/profiles/<int:user_id>/')
     api.add_resource(ChatsApi, '/api/v1.0/chats/')
     api.add_resource(ChatApi, '/api/v1.0/chats/<int:chat_id>/')
     return None
